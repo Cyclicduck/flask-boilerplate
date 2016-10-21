@@ -8,6 +8,8 @@ import logging
 from logging import Formatter, FileHandler
 from forms import *
 import os
+from flask.ext.googlemaps import GoogleMaps
+from flask.ext.googlemaps import Map
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -16,6 +18,7 @@ import os
 app = Flask(__name__)
 app.config.from_object('config')
 #db = SQLAlchemy(app)
+GoogleMaps(app)
 
 # Automatically tear down SQLAlchemy.
 '''
@@ -90,6 +93,12 @@ if not app.debug:
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
     app.logger.info('errors')
+
+#google map viewer
+@app.route('/map')
+def showMap():
+    m = Map(identifier='view-side', lat=38.648859, lng=-90.310778)
+    return render_template('pages/showmap.html',map=m)
 
 #----------------------------------------------------------------------------#
 # Launch.
