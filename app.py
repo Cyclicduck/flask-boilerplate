@@ -8,8 +8,8 @@ import logging
 from logging import Formatter, FileHandler
 from forms import *
 import os
-#from flask.ext.googlemaps import GoogleMaps
-#from flask.ext.googlemaps import Map
+from flask.ext.googlemaps import GoogleMaps
+from flask.ext.googlemaps import Map
 
 #----------------------------------------------------------------------------#
 # App Config.
