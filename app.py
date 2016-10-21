@@ -3,7 +3,7 @@
 #----------------------------------------------------------------------------#
 
 from flask import Flask, render_template, request, jsonify
-# from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
 from forms import *
@@ -17,8 +17,9 @@ import os
 
 app = Flask(__name__)
 app.config.from_object('config')
-#db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 #GoogleMaps(app)
+from models import User # needs to be after app is declared
 
 # Automatically tear down SQLAlchemy.
 '''
@@ -72,8 +73,13 @@ def login():
     return render_template('forms/login.html', form=form)
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET','POST'])
 def register():
+    if request.method == 'POST':
+        next = User(request.form['name'], request.form['password'])
+        db.session.add(next)
+        db.session.commit()
+        return render_template('pages/placeholder.home.html')
     form = RegisterForm(request.form)
     return render_template('forms/register.html', form=form)
 
