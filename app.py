@@ -2,7 +2,7 @@
 # Imports
 #----------------------------------------------------------------------------#
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 # from flask.ext.sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
@@ -42,6 +42,18 @@ def login_required(test):
 #----------------------------------------------------------------------------#
 # Controllers.
 #----------------------------------------------------------------------------#
+#need jsonify imported for ajax to work
+# Ajax call handler - Server side
+@app.route('/ajaxtest', methods=['POST'])
+def testAjax():
+    n = int(request.form['exponent'])
+    return jsonify({'power2': str(2**n),
+                    'power3': str(3**n)})
+
+# Ajax test page
+@app.route('/ajaxpage')
+def ajaxPage():
+    return render_template('pages/ajaxtestpage.html')
 
 
 @app.route('/')
