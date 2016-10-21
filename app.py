@@ -18,7 +18,7 @@ from flask.ext.googlemaps import Map
 app = Flask(__name__)
 app.config.from_object('config')
 #db = SQLAlchemy(app)
-#GoogleMaps(app)
+GoogleMaps(app)
 
 # Automatically tear down SQLAlchemy.
 '''
@@ -95,10 +95,10 @@ if not app.debug:
     app.logger.info('errors')
 
 #google map viewer
-#@app.route('/map')
-#def showMap():
-#    m = Map(identifier='view-side', lat=38.648859, lng=-90.310778)
-#    return render_template('pages/showmap.html',map=m)
+@app.route('/map')
+def showMap():
+    m = Map(identifier='view-side', lat=38.648859, lng=-90.310778)
+    return render_template('pages/showmap.html',map=m)
 
 #----------------------------------------------------------------------------#
 # Launch.
