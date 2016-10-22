@@ -1,10 +1,10 @@
 from flask_wtf import Form
-<<<<<<< HEAD
-from wtforms import TextField, PasswordField, IntegerField
-=======
-from wtforms import TextField, PasswordField
-from wtforms import StringField, BooleanField
->>>>>>> af1add2edbfeab75cc5ec0756fb8e49fab9513ac
+#<<<<<<< HEAD
+from wtforms import TextField, PasswordField, IntegerField, StringField,BooleanField
+#=======
+#from wtforms import TextField, PasswordField
+#from wtforms import StringField, BooleanField
+#>>>>>>> af1add2edbfeab75cc5ec0756fb8e49fab9513ac
 from wtforms.validators import DataRequired, EqualTo, Length
 
 # Set your classes here.

@@ -18,11 +18,11 @@ app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 #GoogleMaps(app)
-<<<<<<< HEAD
-from models import * # needs to be after app is declared
-=======
+#<<<<<<< HEAD
+#from models import * # needs to be after app is declared
+#=======
 #from models import User # needs to be after app is declared
->>>>>>> af1add2edbfeab75cc5ec0756fb8e49fab9513ac
+#>>>>>>> af1add2edbfeab75cc5ec0756fb8e49fab9513ac
 
 # Automatically tear down SQLAlchemy.
 '''
