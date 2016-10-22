@@ -88,10 +88,15 @@ def home():
 def about():
     return render_template('pages/placeholder.about.html')
 
-
-# People Pages
-@app.route('/seeking')
+# People pages
+@app.route('/seeking', methods=['GET', 'POST'])
 def seeking():
+    if request.method == 'POST':
+        if request.form.gender == 'Male':
+            print('male')
+        else:
+            print('female')
+        return render_template('pages/seeking.html')
     return render_template('pages/seeking.html')
 
 @app.route('/orgs')
@@ -101,7 +106,6 @@ def organizations():
 @app.route('/vols')
 def volunteers():
     return render_template('pages/volunteers.html')
-
 
  # Connecting Pages 
 @app.route('/connect_seek')
@@ -116,8 +120,7 @@ def connect_orgs():
 def connect_vols():
     return render_template('pages/connect_vols.html')
 
-
-# Forms Pages 
+# Forms Pages
 @app.route('/login')
 def login():
     form = LoginForm(request.form)
