@@ -12,3 +12,6 @@ SECRET_KEY = 'my precious'
 
 # Connect to the database
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.db')
+SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository') 
+
+SQLALCHEMY_TRACK_MODIFICATIONS = False 
