@@ -18,9 +18,13 @@ except ImportError:
 SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Sheets API Python Quickstart'
-LAST_COLUMN = 'I'
+LAST_COLUMN = 'BL'
+DATA_ROW_CONST = 3
+NUM_FIELDS = 64
+
 spreadsheetId = '1IdZdzPzyWN1gvzdJ1vzvzGbFwHS1wwqohi25q0e52nM'
 service = None
+sp_values = None
 
 def get_credentials():
     """Gets valid user credentials from storage.
@@ -57,18 +61,18 @@ def init():
     students in a sample spreadsheet:
     https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
     """
-    global service
+    global service, sp_values
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
                     'version=v4')
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
+    sp_values = service.spreadsheets().values()
 init()
 def getRows(startRow=2, endRow=2):
     rangeName = 'A%s:%s%s' % (startRow, LAST_COLUMN, endRow)
-    values = service.spreadsheets().values().get(
-        spreadsheetId=spreadsheetId, range=rangeName).execute().get('values', [])
+    values = sp_values.get(spreadsheetId=spreadsheetId, range=rangeName).execute().get('values', [])
     if not values:
         raise Exception('No data found!')
     return values
