@@ -3,7 +3,7 @@
 #----------------------------------------------------------------------------#
 
 from flask import Flask, render_template, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
 from forms import *
@@ -17,9 +17,8 @@ import os
 
 app = Flask(__name__)
 app.config.from_object('config')
-db = SQLAlchemy(app)
+#db = SQLAlchemy(app)
 #GoogleMaps(app)
-#from models import User # needs to be after app is declared
 
 # Automatically tear down SQLAlchemy.
 '''
@@ -66,19 +65,6 @@ def home():
 def about():
     return render_template('pages/placeholder.about.html')
 
-@app.route('/seeking')
-def seeking():
-    return render_template('pages/seeking.html')
-
-@app.route('/orgs')
-def organizations():
-    return render_template('pages/organizations.html')
-
-@app.route('/vols')
-def volunteers():
-    return render_template('pages/volunteers.html')
-
-
 
 @app.route('/login')
 def login():
@@ -86,13 +72,8 @@ def login():
     return render_template('forms/login.html', form=form)
 
 
-@app.route('/register', methods=['GET','POST'])
+@app.route('/register')
 def register():
-    if request.method == 'POST':
-        next = User(request.form['name'], request.form['password'])
-        db.session.add(next)
-        db.session.commit()
-        return render_template('pages/placeholder.home.html')
     form = RegisterForm(request.form)
     return render_template('forms/register.html', form=form)
 
