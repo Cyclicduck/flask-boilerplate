@@ -4,7 +4,7 @@
 
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask.ext.heroku import Heroku #online hosting package
+from flask_heroku import Heroku #online hosting package
 import logging
 from logging import Formatter, FileHandler
 from forms import *
@@ -78,6 +78,7 @@ def getAnalyzePage():
         L.append([i,fieldNames[i]])
     return render_template('pages/analyze.html', options=L)
     
+
 @app.route('/')
 def home():
     return render_template('pages/placeholder.home.html')

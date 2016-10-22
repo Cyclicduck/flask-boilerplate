@@ -18,9 +18,9 @@ except ImportError:
 SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Sheets API Python Quickstart'
-LAST_COLUMN = 'BL'
+LAST_COLUMN = 'BP'
 DATA_ROW_CONST = 3
-NUM_FIELDS = 64
+NUM_FIELDS = 68
 
 spreadsheetId = '1IdZdzPzyWN1gvzdJ1vzvzGbFwHS1wwqohi25q0e52nM'
 service = None

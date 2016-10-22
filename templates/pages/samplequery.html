@@ -22,7 +22,8 @@ function getAjaxResponse(selectField, selectStat, numberField, ansDiv) {
 {% endfor %}
 </select>
 <select id="statselect">
-{% 
+{% for stat in stats %}
+<option value="{{ stat }}"> {{ stat }} </option>
 <button onclick="javascript:getAjaxResponse('#fieldselect', '#statselect', '#number', '#answerDiv');">Submit</button>
 <div id="answerDiv"></div>
 <a href="/">Return to Stone Soup home page</a>
