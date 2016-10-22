@@ -1,0 +1,30 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<title> Sample Data Page </title>
+<script>
+function getAjaxResponse(selectField, selectStat, numberField, ansDiv) {
+    $.post('/getsampledata', {fieldName: $(selectField).val(),
+			      statName: $(selectStat).val(),
+                              number: $(numberField).val()},
+	 function(data, x) {
+		$(ansDiv).text("The "+data.statName+" of "+$(selectField).val()+" is "+data.answer);
+	});
+}
+</script>
+</head>
+<body>
+<h1> Survey Response Analyzer </h1>
+<p> Select the question that you want to analyze the results of. </p>
+<select id="fieldselect">
+{% for field in options %}
+<option value="{{ opt[0] }}"> {{ opt[1] }} </option>
+{% endfor %}
+</select>
+<select id="statselect">
+{% 
+<button onclick="javascript:getAjaxResponse('#fieldselect', '#statselect', '#number', '#answerDiv');">Submit</button>
+<div id="answerDiv"></div>
+<a href="/">Return to Stone Soup home page</a>
+</body>
+</html>

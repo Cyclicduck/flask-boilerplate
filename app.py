@@ -4,9 +4,10 @@
 
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask.ext.heroku import Heroku #online hosting package
 import logging
 from logging import Formatter, FileHandler
-#from forms import *
+from forms import *
 import os
 #from flask.ext.googlemaps import GoogleMaps
 #from flask.ext.googlemaps import Map
@@ -15,11 +16,12 @@ import os
 #----------------------------------------------------------------------------#
 
 app = Flask(__name__)
+heroku = Heroku(app)
 app.config.from_object('config')
-#db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 #GoogleMaps(app)
 #<<<<<<< HEAD
-#from models import * # needs to be after app is declared
+from models import * # needs to be after app is declared
 #=======
 #from models import User # needs to be after app is declared
 #>>>>>>> af1add2edbfeab75cc5ec0756fb8e49fab9513ac
@@ -43,8 +45,6 @@ def login_required(test):
             return redirect(url_for('login'))
     return wrap
 '''
-#import statanalyzer
-#statanalyzer.init()
 
 #----------------------------------------------------------------------------#
 # Controllers.
@@ -63,21 +63,20 @@ def testAjax():
 @app.route('/ajaxpage')
 def ajaxPage():
     return render_template('pages/ajaxtestpage.html')
-#import statanalyzer
-#statanalyzer.init()
-#@app.route('/getstatdata', methods=['POST'])
-#def getStatData():
-#    index = int(request.form['index'])
-#    return jsonify({'avg': statanalyzer.getAvg(index),
-#                    'sd': statanalyzer.getSD(index),
-#                    'n': statanalyzer.getNumEntries(index)})
-#@app.route('/analyze')
-#def getAnalyzePage():
-#    L = []
-#    for i in range(len(fieldNames)):
-#        L.append([i,fieldNames[i]])
-#    return render_template('pages/analyze.html', options=L)
-
+import statanalyzer
+statanalyzer.init()
+@app.route('/getstatdata', methods=['POST'])
+def getStatData():
+    index = int(request.form['index'])
+    return jsonify({'avg': statanalyzer.getAvg(index),
+                    'sd': statanalyzer.getSD(index),
+                    'n': statanalyzer.getNumEntries(index)})
+@app.route('/analyze')
+def getAnalyzePage():
+    L = []
+    for i in range(len(fieldNames)):
+        L.append([i,fieldNames[i]])
+    return render_template('pages/analyze.html', options=L)
     
 @app.route('/')
 def home():
