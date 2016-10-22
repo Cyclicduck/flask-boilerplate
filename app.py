@@ -88,10 +88,11 @@ def home():
 def about():
     return render_template('pages/placeholder.about.html')
 
+# People pages
 @app.route('/seeking', methods=['GET', 'POST'])
 def seeking():
     if request.method == 'POST':
-        if request.form['gender'] == 'Male':
+        if request.form.gender == 'Male':
             print('male')
         else:
             print('female')
@@ -106,8 +107,20 @@ def organizations():
 def volunteers():
     return render_template('pages/volunteers.html')
 
+ # Connecting Pages 
+@app.route('/connect_seek')
+def connect_seek():
+    return render_template('pages/connect_seek.html')
 
+@app.route('/connect_orgs')
+def connect_orgs():
+    return render_template('pages/connect_orgs.html')
 
+@app.route('/connect_vols')
+def connect_vols():
+    return render_template('pages/connect_vols.html')
+
+# Forms Pages
 @app.route('/login')
 def login():
     form = LoginForm(request.form)
