@@ -55,7 +55,7 @@
             <li {% if request.endpoint == 'home' %} class="active" {% endif %}><a href="{{ url_for('home') }}">Home</a></li>
             <li {% if request.endpoint == 'about' %} class="active" {% endif %}><a href="{{ url_for('about') }}">About</a></li>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <a class="dropdown-toggle" data-toggle="dropdown">Tools <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="/analyze">Analyzer</a></li>
                 <li><a>Another action</a></li>
@@ -85,9 +85,9 @@
               <a class="dropdown-toggle" data-toggle="dropdown">Connect!<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">I am/want to be a...</li>
-                <li><a>Seeking Shelter</a></li>
-                <li><a>Charitable Organization</a></li>
-                <li><a>Volunteer</a></li>
+                <li><a href="/seeking">Seeking Shelter</a></li>
+                <li><a href="/orgs">Charitable Organization</a></li>
+                <li><a href="/vols">Volunteer</a></li>
                 
               </ul>
             </li>

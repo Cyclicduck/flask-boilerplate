@@ -91,7 +91,7 @@ def about():
 @app.route('/seeking', methods=['GET', 'POST'])
 def seeking():
     if request.method == 'POST':
-        if request.form.gender == 'Male':
+        if request.form['gender'] == 'Male':
             print('male')
         else:
             print('female')
