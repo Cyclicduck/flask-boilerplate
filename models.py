@@ -26,6 +26,26 @@ class User(Base):
         self.name = name
         self.password = password
 
+class Question(Base):
+    __tablename__ = 'questions'
+
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(1024))
+    def __init__(self, question):
+        self.question = question
+    def __repr__(self):
+        return '<Question (ID=%s): %s>' % (self.id, self.question)
+
+class Response(Base):
+    __tablename__ = 'responses'
+
+    id = db.Column(db.Integer, primary_key=True)
+    question_id = db.Column(db.Integer)
+    answer = db.Column(db.Integer)
+    def __repr__(self):
+        return '<Response to (Question #%s): %s>' % (self.question_id, self.answer)
+
+
 
 # Create tables.
 Base.metadata.create_all(bind=engine)

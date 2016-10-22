@@ -1,0 +1,21 @@
+<!-- IO test page - shows the different ways of talking between the client and server sides -->
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<title> IO test page </title>
+<script>
+function getTestAjaxResponse(n, pow2id, pow3id) {
+    $.post('/ajaxtest', {exponent: $(n).val()},function(x,y) {$(pow2id).text('2^'+$(n).val()+'='+x['power2']); $(pow3id).text('3^'+$(n).val()+'='+x['power3']);});
+}
+</script>
+</head>
+<body>
+<span id="power2span">Power of 2 goes here.</span>
+<span id="power3span">Power of 3 goes here.</span>
+<form action="javascript:getTestAjaxResponse('#entryfield', '#power2span', '#power3span');">
+     <input placeholder="Enter a positive integer." id="entryfield" type="number" name="n">
+     <span><button type="submit">Enter</button></span>
+</form>
+<a href="javascript:getTestAjaxResponse('#entryfield', '#power2span', '#power3span');">Enter</a>
+</body>
+</html>

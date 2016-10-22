@@ -1,0 +1,24 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<title> Analyze page </title>
+<script>
+function getTestAjaxResponse2(field, ansDiv1, ansDiv2, ansDiv3) {
+    $.post('/getstatdata', {index: $(field).val()},function(x,y) {$(ansDiv1).text("Average: "+x.avg);$(ansDiv2).text("Standard Deviation: "+x.sd);$(ansDiv3).text("Number of Responses: "+x.n);});
+}
+</script>
+</head>
+<body>
+<h1> Survey Response Analyzer </h1>
+<p> Select the question that you want to analyze the results of. </p>
+<select id="fieldselect">
+{% for opt in options %}
+<option value="{{ opt[0] }}"> {{ opt[1] }} </option>
+{% endfor %}
+</select>
+<button onclick="javascript:getTestAjaxResponse2('#fieldselect', '#answerDiv1', '#answerDiv2', '#answerDiv3');">Submit</button>
+<div id="answerDiv1"></div>
+<div id="answerDiv2"></div>
+<div id="answerDiv3"></div>
+</body>
+</html>

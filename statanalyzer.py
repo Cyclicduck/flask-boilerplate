@@ -36,6 +36,12 @@ def getAvg(rowNum):
     if L:
         return average(L)
     return None
+def getNumEntries(rowNum):
+    L = getNumberList(rowNum)
+    if L:
+        return len(L)
+    else:
+        return 0
 def getSD(rowNum):
     L = getNumberList(rowNum)
     if L:
@@ -50,8 +56,8 @@ def getRating(row):
             d = float(row[n])
             k += 1.0
             tot += d
+        except:
+            pass
     return tot/k
-
-def getRatings():
     
     

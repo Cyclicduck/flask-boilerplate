@@ -10,7 +10,6 @@ from forms import *
 import os
 #from flask.ext.googlemaps import GoogleMaps
 #from flask.ext.googlemaps import Map
-
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
@@ -19,7 +18,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 #GoogleMaps(app)
-from models import User # needs to be after app is declared
+from models import * # needs to be after app is declared
 
 # Automatically tear down SQLAlchemy.
 '''
@@ -40,11 +39,16 @@ def login_required(test):
             return redirect(url_for('login'))
     return wrap
 '''
+#import statanalyzer
+#statanalyzer.init()
+
 #----------------------------------------------------------------------------#
 # Controllers.
 #----------------------------------------------------------------------------#
 #need jsonify imported for ajax to work
 # Ajax call handler - Server side
+fieldNames = ['Timestamp', 'Name', 'ID', 'Phone number', 'Email', 'Gender', 'How friendly were the staff?', 'How efficient was the process?', 'Overall Satisfaction?', 'Ethnicity', 'Age', 'Are you a veteran?', 'Have you been diagnosed with any of the following?', 'What is your current monthly income?', 'Where were you living prior to coming here?', 'Why did you choose to come here? [Rent/Utility bills]', 'Why did you choose to come here? [Prescription/Medical bills]', 'Why did you choose to come here? [Loss of wages]', 'Why did you choose to come here? [Family expenses]', 'Why did you choose to come here? [Death in family]', 'Why did you choose to come here? [Relocation costs]', 'Why did you choose to come here? [Domestic violence]', 'Why did you choose to come here? [Needed food]', 'Why did you choose to come here? [Needed clothing]', 'Why did you choose to come here? [Wanted information about shelters]', 'How did you hear of this program?', '"If you were referred to this program by another participant please enter your referrer\'s name below."', 'Which problems were you looking to solve? [Receiving money]', 'Was it made clear how the program worked?', 'Overall Impression of Staff?', 'Any other information we should know about you?', 'Which problems were you looking to solve? [Receiving vouchers for goods/items]', 'Which problems were you looking to solve? [Receiving referral information]', 'Which problems were you looking to solve? [Receiving housing]', 'Which problems were you looking to solve? [Receiving counseling]', 'How well did the staff understand your situation?', 'Please rank the helpfulness of the following services for you to the best of your ability. [Reception/General Efficiency]', '"What was the approximate zipcode of your location prior to arriving here?  If you are not sure or do not wish to answer please write N/A."', 'Please rank the helpfulness of the following services for you to the best of your ability. [Meal Provisions]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Health and Disabilities Services]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Substance Abuse Services]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Domestic Violence Services]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Employment and Education Services]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Energy and Housing Assistance]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Receiving Money and Goods]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Legal Services]', 'Please rank the following services of this program to the best of your ability. [Housing Services]', 'Please rank the following services of this program to the best of your ability. [Technology Services]', 'Please rank the following services of this program to the best of your ability. [Religious Resources]', 'Please rank the following services of this program to the best of your ability. [Comm]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Hygiene Care]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Technology Services]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Finding Communities]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Receiving Information and Resources]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Counseling Services]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Housing Services]', 'Please rank the helpfulness of the following services for you to the best of your ability. [Finding Religious Communities]', 'Any additional comments?', 'Were there any services which you would like to see improved?', 'Were there any services which particularly impressed you?', 'Any other information?', 'Wa', 'Why did you choose to come here? [Row 11]', 'Why did you choose to come here? [Row 4]']
+
 @app.route('/ajaxtest', methods=['POST'])
 def testAjax():
     n = int(request.form['exponent'])
@@ -55,8 +59,22 @@ def testAjax():
 @app.route('/ajaxpage')
 def ajaxPage():
     return render_template('pages/ajaxtestpage.html')
+import statanalyzer
+statanalyzer.init()
+@app.route('/getstatdata', methods=['POST'])
+def getStatData():
+    index = int(request.form['index'])
+    return jsonify({'avg': statanalyzer.getAvg(index),
+                    'sd': statanalyzer.getSD(index),
+                    'n': statanalyzer.getNumEntries(index)})
+@app.route('/analyze')
+def getAnalyzePage():
+    L = []
+    for i in range(len(fieldNames)):
+        L.append([i,fieldNames[i]])
+    return render_template('pages/analyze.html', options=L)
 
-
+    
 @app.route('/')
 def home():
     return render_template('pages/placeholder.home.html')
@@ -83,6 +101,10 @@ def register():
     form = RegisterForm(request.form)
     return render_template('forms/register.html', form=form)
 
+##@app.route('/askquestion')
+##def getResponse():
+##    if request.method == 'POST':
+##        resp = Response(
 
 @app.route('/forgot')
 def forgot():
@@ -90,8 +112,6 @@ def forgot():
     return render_template('forms/forgot.html', form=form)
 
 # Error handlers.
-
-
 @app.errorhandler(500)
 def internal_error(error):
     #db_session.rollback()
