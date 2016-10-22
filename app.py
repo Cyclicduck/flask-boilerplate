@@ -3,7 +3,7 @@
 #----------------------------------------------------------------------------#
 
 from flask import Flask, render_template, request, jsonify
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
 from forms import *
@@ -18,7 +18,11 @@ app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 #GoogleMaps(app)
+<<<<<<< HEAD
 from models import * # needs to be after app is declared
+=======
+#from models import User # needs to be after app is declared
+>>>>>>> af1add2edbfeab75cc5ec0756fb8e49fab9513ac
 
 # Automatically tear down SQLAlchemy.
 '''
@@ -83,6 +87,19 @@ def home():
 @app.route('/about')
 def about():
     return render_template('pages/placeholder.about.html')
+
+@app.route('/seeking')
+def seeking():
+    return render_template('pages/seeking.html')
+
+@app.route('/orgs')
+def organizations():
+    return render_template('pages/organizations.html')
+
+@app.route('/vols')
+def volunteers():
+    return render_template('pages/volunteers.html')
+
 
 
 @app.route('/login')

@@ -10,4 +10,15 @@
     <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block" disabled>
     <p>You must add database as well as Flask-Login to enable user management. See the <a href="http://www.realpython.com">Real Python</a> course for more info!</p>
   </form>
+
+  <h1>Sign In</h1>
+  <form action="" method="post" name="login">
+      {{ form.hidden_tag() }}
+      <p>
+          Please enter your OpenID:<br>
+          {{ form.openid(size=80) }}<br>
+      </p>
+      <p>{{ form.remember_me }} Remember Me</p>
+      <p><input type="submit" value="Sign In"></p>
+  </form
 {% endblock %}

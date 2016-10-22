@@ -1,5 +1,10 @@
 from flask_wtf import Form
+<<<<<<< HEAD
 from wtforms import TextField, PasswordField, IntegerField
+=======
+from wtforms import TextField, PasswordField
+from wtforms import StringField, BooleanField
+>>>>>>> af1add2edbfeab75cc5ec0756fb8e49fab9513ac
 from wtforms.validators import DataRequired, EqualTo, Length
 
 # Set your classes here.
@@ -25,6 +30,8 @@ class RegisterForm(Form):
 class LoginForm(Form):
     name = TextField('Username', [DataRequired()])
     password = PasswordField('Password', [DataRequired()])
+    openid = StringField('openid', validators=[DataRequired()])
+    remember_me = BooleanField('remember_me', default = False)
 
 
 class ForgotForm(Form):
