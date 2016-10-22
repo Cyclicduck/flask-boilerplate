@@ -9,4 +9,5 @@ def countOccurences(fieldName, value):
         if x[fieldName] == value:
             count+=1
     return count
-def 
+def countWithinRange(fieldName, lower, upper):
+    

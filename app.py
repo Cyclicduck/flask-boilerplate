@@ -3,7 +3,7 @@
 #----------------------------------------------------------------------------#
 
 from flask import Flask, render_template, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
 from forms import *
@@ -16,7 +16,7 @@ import os
 
 app = Flask(__name__)
 app.config.from_object('config')
-db = SQLAlchemy(app)
+#db = SQLAlchemy(app)
 #GoogleMaps(app)
 #<<<<<<< HEAD
 from models import * # needs to be after app is declared
@@ -63,14 +63,14 @@ def testAjax():
 @app.route('/ajaxpage')
 def ajaxPage():
     return render_template('pages/ajaxtestpage.html')
-import statanalyzer
-statanalyzer.init()
-@app.route('/getstatdata', methods=['POST'])
-def getStatData():
-    index = int(request.form['index'])
-    return jsonify({'avg': statanalyzer.getAvg(index),
-                    'sd': statanalyzer.getSD(index),
-                    'n': statanalyzer.getNumEntries(index)})
+#import statanalyzer
+#statanalyzer.init()
+#@app.route('/getstatdata', methods=['POST'])
+#def getStatData():
+#    index = int(request.form['index'])
+#    return jsonify({'avg': statanalyzer.getAvg(index),
+#                    'sd': statanalyzer.getSD(index),
+#                    'n': statanalyzer.getNumEntries(index)})
 @app.route('/analyze')
 def getAnalyzePage():
     L = []
@@ -111,15 +111,15 @@ def login():
     return render_template('forms/login.html', form=form)
 
 
-@app.route('/register', methods=['GET','POST'])
-def register():
-    if request.method == 'POST':
-        next = User(request.form['name'], request.form['password'])
-        db.session.add(next)
-        db.session.commit()
-        return render_template('pages/placeholder.home.html')
-    form = RegisterForm(request.form)
-    return render_template('forms/register.html', form=form)
+#@app.route('/register', methods=['GET','POST'])
+#def register():
+#    if request.method == 'POST':
+#        next = User(request.form['name'], request.form['password'])
+#        db.session.add(next)
+#        db.session.commit()
+#        return render_template('pages/placeholder.home.html')
+#    form = RegisterForm(request.form)
+#    return render_template('forms/register.html', form=form)
 
 ##@app.route('/askquestion')
 ##def getResponse():
