@@ -4,7 +4,7 @@
 
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask.ext.heroku import Heroku #online hosting package
+from flask_heroku import Heroku #online hosting package
 import logging
 from logging import Formatter, FileHandler
 from forms import *
@@ -87,6 +87,8 @@ def home():
 def about():
     return render_template('pages/placeholder.about.html')
 
+
+# People pages
 @app.route('/seeking', methods=['GET', 'POST'])
 def seeking():
     if request.method == 'POST':
@@ -101,6 +103,20 @@ def organizations():
 @app.route('/vols')
 def volunteers():
     return render_template('pages/volunteers.html')
+
+
+# Connect pages
+@app.route('/connect-seek')
+def connect_seek():
+    return render_template('pages/connect_seek.html')
+
+@app.route('/connect-orgs')
+def connect_orgs():
+    return render_template('pages/connect_orgs.html')
+
+@app.route('/connect-vols')
+def connect_vols():
+    return render_template('pages/connect_vols.html')
 
 
 
