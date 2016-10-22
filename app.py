@@ -88,8 +88,14 @@ def home():
 def about():
     return render_template('pages/placeholder.about.html')
 
-@app.route('/seeking')
+@app.route('/seeking', methods=['GET', 'POST'])
 def seeking():
+    if request.method == 'POST':
+        if request.form.gender == 'Male':
+            print('male')
+        else:
+            print('female')
+        return render_template('pages/seeking.html')
     return render_template('pages/seeking.html')
 
 @app.route('/orgs')
